@@ -39,7 +39,7 @@ app/src/main/java/com/example/clima/data/repository/WeatherRepository.kt
 Y reemplaza `"TU_API_KEY_AQUI"` con tu API key real:
 
 ```kotlin
-private val apiKey = "t063c4f035798c46d38a39a9c231f4b11"
+private val apiKey = "TU_API_KEY"
 ```
 
 ### 3. Sincronizar el Proyecto
