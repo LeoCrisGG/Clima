@@ -1,3 +1,47 @@
 <resources>
     <string name="app_name">Clima</string>
+
+    <!-- Main Screen -->
+    <string name="search_hint">Buscar ciudad...</string>
+    <string name="my_location">Mi ubicación</string>
+    <string name="refresh">Actualizar</string>
+    <string name="weather_tab">Clima</string>
+    <string name="map_tab">Mapa</string>
+
+    <!-- Weather Details -->
+    <string name="feels_like">Sensación térmica: %1$d°C</string>
+    <string name="max_temp">Máxima</string>
+    <string name="min_temp">Mínima</string>
+    <string name="details">Detalles</string>
+    <string name="additional_info">Información Adicional</string>
+
+    <!-- Weather Data -->
+    <string name="humidity">Humedad</string>
+    <string name="pressure">Presión</string>
+    <string name="wind">Viento</string>
+    <string name="visibility">Visibilidad</string>
+    <string name="clouds">Nubosidad</string>
+    <string name="sunrise">Amanecer</string>
+    <string name="sunset">Atardecer</string>
+    <string name="coordinates">Coordenadas</string>
+
+    <!-- Favorites -->
+    <string name="favorites_title">Ubicaciones Favoritas (%1$d/5)</string>
+    <string name="add_to_favorites">Agregar a favoritos</string>
+    <string name="remove_from_favorites">Eliminar de favoritos</string>
+    <string name="max_favorites_reached">Máximo 5 ubicaciones favoritas alcanzado</string>
+
+    <!-- Map -->
+    <string name="selected_location">Ubicación seleccionada</string>
+    <string name="get_weather_from_location">Obtener clima de esta ubicación</string>
+    <string name="current_location">Tu ubicación actual</string>
+
+    <!-- Errors -->
+    <string name="error_loading_weather">Error al cargar el clima</string>
+    <string name="city_not_found">Ciudad no encontrada</string>
+    <string name="location_permission_required">Se requiere permiso de ubicación</string>
+    <string name="no_internet">Sin conexión a Internet</string>
+
+    <!-- Permissions -->
+    <string name="location_permission_rationale">Esta app necesita acceso a tu ubicación para mostrar el clima local</string>
 </resources>

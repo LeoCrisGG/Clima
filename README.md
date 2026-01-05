@@ -1,125 +1,127 @@
-# Aplicación del Clima ☀️🌧️
+# Aplicación de Clima - Android
 
-Una aplicación completa del clima para Android con Jetpack Compose que muestra información meteorológica detallada.
+Una aplicación completa de clima para Android desarrollada con Jetpack Compose que utiliza las APIs de OpenWeatherMap y Google Maps.
 
-## 🌟 Características
+## Características
 
-- **Clima Actual**: Temperatura, sensación térmica, descripción del clima
-- **Pronóstico por Horas**: Próximas 24 horas con temperatura y probabilidad de lluvia
-- **Pronóstico de 7 Días**: Temperaturas máximas/mínimas y condiciones
-- **Detalles Meteorológicos**:
-  - Humedad
+✅ **Búsqueda de ciudades**: Busca el clima de cualquier ciudad del mundo
+✅ **Ubicación actual**: Obtén el clima de tu ubicación actual con GPS
+✅ **Mapa interactivo**: Selecciona ubicaciones en un mapa para ver su clima
+✅ **Ubicaciones favoritas**: Guarda hasta 5 ubicaciones como favoritas
+✅ **Datos completos del clima**:
+  - Temperatura actual, mínima y máxima
+  - Sensación térmica
+  - Humedad y presión atmosférica
   - Velocidad del viento
-  - Presión atmosférica
-  - Visibilidad
-  - Nubosidad
-- **Calidad del Aire**: Índice AQI con componentes PM2.5, PM10, y O₃
-- **Amanecer y Atardecer**: Horarios exactos
-- **Ubicación Automática**: Detecta tu ubicación actual
-- **Búsqueda de Ciudades**: Busca el clima de cualquier ciudad del mundo
-- **Interfaz Dinámica**: El fondo cambia según las condiciones climáticas
+  - Visibilidad y nubosidad
+  - Horas de amanecer y atardecer
+  - Coordenadas geográficas
 
-## 🔧 Configuración
+## Configuración
 
-### 1. Obtener una API Key de OpenWeatherMap (GRATIS)
+### 1. Obtener las API Keys
 
-1. Ve a [OpenWeatherMap](https://openweathermap.org/api)
-2. Haz clic en "Sign Up" para crear una cuenta gratuita
-3. Confirma tu email
-4. Ve a "API Keys" en tu perfil
-5. Copia tu API key (o genera una nueva)
+#### OpenWeatherMap API Key
+1. Visita [OpenWeatherMap](https://openweathermap.org/api)
+2. Crea una cuenta gratuita
+3. Ve a "API Keys" en tu perfil
+4. Copia tu API Key
 
-### 2. Configurar la API Key en el Proyecto
+#### Google Maps API Key
+1. Visita [Google Cloud Console](https://console.cloud.google.com/)
+2. Crea un nuevo proyecto
+3. Habilita las siguientes APIs:
+   - Maps SDK for Android
+   - Places API
+4. Ve a "Credenciales" y crea una API Key
+5. Copia tu API Key
 
-Abre el archivo:
-```
-app/src/main/java/com/example/clima/data/repository/WeatherRepository.kt
-```
+### 2. Configurar las API Keys en el proyecto
 
-Y reemplaza `"TU_API_KEY_AQUI"` con tu API key real:
-
+#### Para OpenWeatherMap:
+Abre el archivo `app/src/main/java/com/example/clima1/utils/Constants.kt` y reemplaza:
 ```kotlin
-private val apiKey = "TU_API_KEY"
+const val OPENWEATHER_API_KEY = "TU_API_KEY_DE_OPENWEATHERMAP"
 ```
 
-### 3. Sincronizar el Proyecto
+#### Para Google Maps:
+Abre el archivo `app/build.gradle.kts` y reemplaza en la línea 19:
+```kotlin
+manifestPlaceholders["MAPS_API_KEY"] = "TU_GOOGLE_MAPS_API_KEY"
+```
 
-En Android Studio:
-1. Haz clic en "File" → "Sync Project with Gradle Files"
+### 3. Sincronizar y compilar
+
+1. Sincroniza el proyecto con Gradle
 2. Espera a que se descarguen todas las dependencias
+3. Compila y ejecuta la aplicación
 
-### 4. Ejecutar la Aplicación
+## Permisos requeridos
 
-1. Conecta un dispositivo Android o inicia un emulador
-2. Haz clic en el botón "Run" (▶️)
-3. La app solicitará permisos de ubicación
-4. ¡Disfruta de tu app del clima!
+La aplicación solicita los siguientes permisos:
+- **INTERNET**: Para obtener datos del clima
+- **ACCESS_FINE_LOCATION**: Para obtener tu ubicación precisa
+- **ACCESS_COARSE_LOCATION**: Para obtener tu ubicación aproximada
 
-## 📱 Permisos Requeridos
-
-- **Internet**: Para obtener datos del clima
-- **Ubicación (Fina y Aproximada)**: Para detectar tu ubicación actual
-
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías utilizadas
 
 - **Kotlin**: Lenguaje de programación
 - **Jetpack Compose**: UI moderna y declarativa
-- **Retrofit**: Cliente HTTP para APIs REST
-- **OpenWeatherMap API**: Datos meteorológicos
-- **Location Services**: Ubicación del dispositivo
+- **Material Design 3**: Diseño moderno y consistente
+- **Retrofit**: Cliente HTTP para las APIs REST
+- **Room**: Base de datos local para favoritos
 - **Coroutines & Flow**: Programación asíncrona
-- **ViewModel**: Arquitectura MVVM
+- **Google Maps Compose**: Integración de mapas
+- **Coil**: Carga de imágenes
+- **MVVM Architecture**: Arquitectura limpia y mantenible
 
-## 📚 API de OpenWeatherMap
+## Estructura del proyecto
 
-La aplicación utiliza los siguientes endpoints de OpenWeatherMap:
+```
+app/src/main/java/com/example/clima1/
+├── data/
+│   ├── local/          # Room Database
+│   ├── model/          # Modelos de datos
+│   ├── remote/         # API Services
+│   └── repository/     # Repositorio de datos
+├── ui/
+│   ├── screens/        # Pantallas de la app
+│   ├── theme/          # Tema y estilos
+│   └── viewmodel/      # ViewModels
+└── utils/              # Utilidades y constantes
+```
 
-- **Current Weather Data**: Clima actual
-- **5 Day / 3 Hour Forecast**: Pronóstico extendido
-- **Air Pollution API**: Calidad del aire
+## Uso de la aplicación
 
-La cuenta gratuita incluye:
-- ✅ 60 llamadas por minuto
-- ✅ 1,000,000 llamadas por mes
-- ✅ Todos los datos meteorológicos básicos
+### Pantalla Principal (Clima)
+- **Buscador**: Escribe el nombre de una ciudad y presiona el botón de enviar
+- **Ubicación actual**: Presiona el icono de ubicación en la barra superior
+- **Actualizar**: Presiona el icono de actualizar para refrescar los datos
+- **Favoritos**: Presiona la estrella para agregar la ubicación actual a favoritos
+- **Lista de favoritos**: Toca una tarjeta de favorito para ver su clima
 
-## 🎨 Características de UI
+### Pantalla de Mapa
+- **Seleccionar ubicación**: Toca cualquier punto del mapa
+- **Ver clima**: Presiona el botón "Obtener clima de esta ubicación"
+- La app cambiará automáticamente a la pantalla de clima con los datos
 
-- Gradientes de fondo dinámicos según el clima
-- Emojis visuales para condiciones climáticas
-- Cards semitransparentes con efecto glassmorphism
-- Animaciones suaves
-- Diseño responsive
-- Material Design 3
+## Limitaciones
 
-## 🌍 Ubicación por Defecto
+- Máximo 5 ubicaciones favoritas
+- La API gratuita de OpenWeatherMap tiene un límite de 60 llamadas por minuto
+- Se requiere conexión a Internet para obtener datos del clima
 
-Si no se conceden permisos de ubicación, la app usa Ciudad de México como ubicación predeterminada.
+## Notas
 
-## 📝 Notas
+- Los datos del clima se muestran en español
+- Las temperaturas se muestran en grados Celsius
+- La velocidad del viento se muestra en metros por segundo
 
-- La API key gratuita puede tardar unos minutos en activarse después del registro
-- Asegúrate de tener conexión a Internet
-- La precisión de la ubicación depende del GPS del dispositivo
+## Soporte
 
-## 🐛 Solución de Problemas
-
-**Error "Invalid API Key"**:
-- Verifica que copiaste correctamente la API key
-- Espera unos minutos si acabas de crear la cuenta
-- Revisa que tu API key esté activa en OpenWeatherMap
-
-**No se detecta la ubicación**:
-- Verifica que los permisos de ubicación estén concedidos
-- Asegúrate de tener el GPS activado
-- Prueba buscar una ciudad manualmente
-
-**Errores de compilación**:
-- Sincroniza el proyecto con Gradle
-- Limpia el proyecto: Build → Clean Project
-- Rebuild: Build → Rebuild Project
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible para fines educativos.
+Si encuentras algún problema, verifica:
+1. Que las API Keys estén correctamente configuradas
+2. Que tengas conexión a Internet
+3. Que los permisos de ubicación estén otorgados
+4. Que las APIs estén habilitadas en tus consolas de desarrollo
 

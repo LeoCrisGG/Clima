@@ -1,21 +1,42 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 android {
-    namespace = "com.example.clima"
+    namespace = "com.example.clima1"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.clima"
+        applicationId = "com.example.clima1"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Leer las API keys desde local.properties
+        val localProperties = rootProject.file("local.properties")
+        val properties = Properties()
+        if (localProperties.exists()) {
+            properties.load(localProperties.inputStream())
+        }
+
+        // Obtener las API keys
+        val openWeatherApiKey = properties.getProperty("OPENWEATHER_API_KEY", "")
+        val googleMapsApiKey = properties.getProperty("GOOGLE_MAPS_API_KEY", "")
+
+        // Inyectar las API keys en BuildConfig
+        buildConfigField("String", "OPENWEATHER_API_KEY", "\"$openWeatherApiKey\"")
+        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$googleMapsApiKey\"")
+
+        // Agregar Google Maps API Key al manifest
+        manifestPlaceholders["MAPS_API_KEY"] = googleMapsApiKey
     }
 
     buildTypes {
@@ -36,6 +57,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -50,23 +72,35 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
 
-    // Retrofit para API calls
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.okhttp.logging)
 
-    // ViewModel y LiveData
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    // Coil for images
+    implementation(libs.coil.compose)
 
-    // Location Services
-    implementation("com.google.android.gms:play-services-location:21.0.1")
+    // Google Maps
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+    implementation(libs.maps.compose)
 
-    // Coil para cargar imágenes
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    // Coroutines para Google Play Services
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
-    // Icons extended
-    implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // ViewModel
+    implementation(libs.lifecycle.viewmodel.compose)
+
+    // Navigation
+    implementation(libs.navigation.compose)
+
+    // Permissions
+    implementation(libs.accompanist.permissions)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
